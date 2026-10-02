@@ -1,15 +1,3 @@
-حق با شماست — عذر می‌خوام. مشکل اینه که من دارم فایل رو تکه‌تکه می‌فرستم و در نسخه‌ی قبلی هم چند خط کلیدی جا افتاد (دکمه‌ی EN/FA هنوز داخل `.nav-links` مونده بود که روی موبایل `display: none` می‌شه). الان کامل و تمیز می‌فرستم.
-
-**فقط یک کار کنید:**
-1. فایل `index.html` رو باز کنید.
-2. کل محتوا رو انتخاب کنید (`Ctrl+A`).
-3. حذف کنید (`Delete`).
-4. کد زیر رو کامل کپی و پیست کنید.
-5. Save و push.
-
----
-
-```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-lang="en">
 <head>
@@ -30,7 +18,6 @@
     --accent-soft: #EAF0F5;
     --sage: #8A9A7B;
     --sand: #D9C9A8;
-    --coffee: #6B4A34;
     --radius: 12px;
     --radius-sm: 8px;
     --max: 1100px;
@@ -50,7 +37,6 @@
     line-height: 1.6;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
-    transition: font-family .2s ease;
     overflow-x: hidden;
   }
 
@@ -77,11 +63,10 @@
     font-weight: 600; font-size: 15px;
     letter-spacing: -0.01em;
     display: flex; align-items: center; gap: 10px;
-    flex-shrink: 1;
     min-width: 0;
   }
 
-  .brand span:last-child {
+  .brand > span:last-child {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -118,8 +103,8 @@
     border-radius: 999px; background: var(--bg-elev);
     font-family: var(--mono); font-size: 12px;
     cursor: pointer; color: var(--text);
-    transition: border-color .15s ease;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .lang-toggle:hover { border-color: var(--accent); }
@@ -140,6 +125,7 @@
     cursor: pointer;
     padding: 0;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .menu-toggle span {
@@ -160,7 +146,6 @@
     flex-direction: column;
     border-bottom: 1px solid var(--border);
     background: var(--bg);
-    padding: 8px 0;
     position: sticky;
     top: 60px;
     z-index: 49;
@@ -176,7 +161,7 @@
   }
 
   .mobile-menu a:last-child { border-bottom: none; }
-  .mobile-menu a:hover { background: var(--accent-soft); color: var(--accent); }
+  .mobile-menu a:active { background: var(--accent-soft); color: var(--accent); }
 
   .hero { padding: 96px 0 72px; }
 
@@ -186,6 +171,7 @@
     color: var(--text-muted);
     display: flex; align-items: center; gap: 10px;
     margin-bottom: 24px;
+    flex-wrap: wrap;
   }
 
   .eyebrow::before {
@@ -195,12 +181,12 @@
 
   h1 {
     font-size: clamp(34px, 6vw, 64px);
-    font-weight: 600; line-height: 1.05;
+    font-weight: 600; line-height: 1.08;
     letter-spacing: -0.03em;
     max-width: 820px; margin-bottom: 24px;
   }
 
-  [data-lang="fa"] h1 { letter-spacing: 0; line-height: 1.35; }
+  [data-lang="fa"] h1 { letter-spacing: 0; line-height: 1.4; }
 
   h1 .accent { color: var(--accent); }
 
@@ -217,7 +203,8 @@
     font-size: 14px; font-weight: 500;
     border: 1px solid var(--border);
     background: var(--bg-elev); color: var(--text);
-    cursor: pointer; transition: all .15s ease;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .btn:hover { border-color: var(--text); transform: translateY(-1px); }
@@ -245,7 +232,7 @@
     margin-top: 12px; max-width: 640px;
   }
 
-  [data-lang="fa"] h2 { letter-spacing: 0; line-height: 1.45; }
+  [data-lang="fa"] h2 { letter-spacing: 0; line-height: 1.5; }
 
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
@@ -254,10 +241,9 @@
     background: var(--bg-elev);
     border: 1px solid var(--border);
     border-radius: var(--radius); padding: 28px;
-    transition: border-color .15s ease, transform .15s ease;
   }
 
-  .card:hover { border-color: var(--text); transform: translateY(-2px); }
+  .card:hover { border-color: var(--text); }
 
   .card .label {
     font-family: var(--mono); font-size: 11px;
@@ -345,7 +331,6 @@
   .photo img {
     width: 100%; height: 100%;
     object-fit: cover; display: block;
-    filter: saturate(0.92) contrast(1.02);
   }
 
   .photo-tag {
@@ -355,7 +340,6 @@
     color: #fff; backdrop-filter: blur(8px);
     font-family: var(--mono); font-size: 11px;
     padding: 6px 10px; border-radius: 6px;
-    letter-spacing: 0.02em;
   }
 
   .contact {
@@ -383,26 +367,17 @@
 
   [dir="rtl"] .eyebrow::before { order: 1; }
   [dir="rtl"] .tl-item::before { transform: translateX(2px); }
-  [dir="rtl"] .photo-tag { letter-spacing: 0; }
 
-  /* ============ RESPONSIVE ============ */
+  /* ---------- موبایل ---------- */
   @media (max-width: 760px) {
-    /* لینک‌های افقی مخفی، منوی موبایل جایگزین */
     .nav-links { display: none; }
-
-    /* همبرگر نمایان */
     .menu-toggle { display: flex; }
-
-    /* دکمه زبان کوچیک‌تر ولی همیشه دیده می‌شه */
-    .lang-toggle {
-      padding: 6px 9px;
-      font-size: 11px;
-    }
+    .lang-toggle { padding: 6px 9px; font-size: 11px; }
 
     .container { padding: 0 18px; }
     .hero { padding: 56px 0 40px; }
 
-    h1 { font-size: 34px; }
+    h1 { font-size: 32px; }
     h2 { font-size: 24px; }
     .lede { font-size: 16px; margin-bottom: 32px; }
 
@@ -421,7 +396,7 @@
   }
 
   @media (max-width: 380px) {
-    h1 { font-size: 30px; }
+    h1 { font-size: 28px; }
     .brand { font-size: 13px; gap: 8px; }
     .lang-toggle { padding: 5px 8px; font-size: 10px; gap: 4px; }
     .menu-toggle { width: 34px; height: 34px; }
@@ -496,7 +471,7 @@
       <div class="card">
         <div class="metric">6</div>
         <span class="label" data-i18n="metric_2_label">Features shipped</span>
-        <p data-i18n="metric_2_desc">Discovery → scoping → release, across fintech and early-stage products.</p>
+        <p data-i18n="metric_2_desc">Discovery, scoping, and release across fintech and early-stage products.</p>
       </div>
       <div class="card">
         <div class="metric">3+</div>
@@ -544,7 +519,7 @@
     <div class="grid-2">
       <div>
         <p style="color: var(--text-muted); font-size: 15.5px; margin-bottom: 20px;" data-i18n="about_p1">
-          I studied Materials Science &amp; Engineering at Iran University of Science &amp; Technology, then moved into product — where I found the same instinct for systems, just applied to software instead of matter.
+          I studied Materials Science and Engineering at Iran University of Science and Technology, then moved into product, where I found the same instinct for systems applied to software instead of matter.
         </p>
         <p style="color: var(--text-muted); font-size: 15.5px; margin-bottom: 28px;" data-i18n="about_p2">
           Today I work on fintech products. I like problems with real constraints: regulation, trust, edge cases, and users who notice when things are wrong. My favorite part of the job is turning a vague complaint into a scoped, shippable feature.
@@ -585,13 +560,13 @@
     <div class="off-grid">
       <div class="off-copy">
         <p data-i18n="off_p1">
-          I ride a lot — mostly on Fridays, mostly with other people. Group rides taught me more about coordination, pace, and reading a room than any meeting ever did.
+          I ride a lot, mostly on Fridays, mostly with other people. Group rides taught me more about coordination, pace, and reading a room than any meeting ever did.
         </p>
         <p data-i18n="off_p2">
           I also love being in nature: foggy hillsides, quiet trails, the kind of morning where the city disappears behind the ridge. It resets my head better than any productivity system.
         </p>
         <p data-i18n="off_p3">
-          And yes — there is almost always a coffee in my hand. It's a personality trait at this point.
+          And yes, there is almost always a coffee in my hand. It is a personality trait at this point.
         </p>
         <div class="cta-row" style="margin-top: 12px;">
           <a href="#contact" class="btn primary" data-i18n="cta_join">Join me for a ride</a>
@@ -627,77 +602,180 @@
 </footer>
 
 <script>
-  const translations = {
-    en: {
-      brand: "Zeinab Kargarazad",
-      nav_work: "Work", nav_about: "About",
-      nav_off: "Off-hours", nav_contact: "Contact",
-      hero_eyebrow: "Product Manager · Fintech · Rider",
-      hero_title_1: "I ship products by day,",
-      hero_title_2: "and climb hills by bike on Fridays.",
-      hero_lede: "Product manager focused on fintech. I care about clear problems, honest metrics, and shipping things people actually use. When I'm not in a sprint, I'm on a bike, in the mountains, or holding a coffee.",
-      cta_talk: "Let's talk",
-      cta_ride: "Ride with me",
-      work_label: "01 — Work",
-      work_title: "Selected experience, framed like product.",
-      metric_1_label: "Product adoption",
-      metric_1_desc: "From market research that shipped 6 new features at Tarjomic.",
-      metric_2_label: "Features shipped",
-      metric_2_desc: "Discovery → scoping → release, across fintech and early-stage products.",
-      metric_3_label: "Teams coordinated",
-      metric_3_desc: "Design, engineering, and international stakeholders across remote and hybrid setups.",
-      remote: "Remote", onsite: "On-site", hybrid: "Hybrid", present: "Present",
-      job1_role: "Associate Product Manager & Scrum Master",
-      job1_desc: "Facilitated Scrum ceremonies, removed impediments, and worked with design, engineering, and international stakeholders to define and ship features. Ran usability testing and supported QA on new releases.",
-      job2_role: "Product Manager",
-      job2_desc: "Own the product backlog end-to-end — from discovery and prioritization to release and iteration.",
-      job3_role: "Associate Product Manager",
-      job3_desc: "Built and shipped MVPs across multiple early-stage products. Led discovery, scoping, and sprint planning for parallel projects — turning fuzzy ideas into testable user stories.",
-      job4_role: "Product Specialist",
-      job4_desc: "Conducted market research that led to 6 new features and a 23% lift in adoption. Redesigned the website, improved user flows, and ran user surveys to surface pain points.",
-      about_label: "02 — About",
-      about_title: "Product manager, materials engineer, coffee addict.",
-      about_p1: "I studied Materials Science & Engineering at Iran University of Science & Technology, then moved into product — where I found the same instinct for systems, just applied to software instead of matter.",
-      about_p2: "Today I work on fintech products. I like problems with real constraints: regulation, trust, edge cases, and users who notice when things are wrong. My favorite part of the job is turning a vague complaint into a scoped, shippable feature.",
-      currently_label: "Currently",
-      currently_1: "Building fintech products",
-      currently_1_desc: "Focused on features that make money movement feel obvious and safe.",
-      currently_2: "Training for longer rides",
-      currently_2_desc: "Friday rides are non-negotiable. The rest of the week is logistics.",
-      currently_3: "Reading, always",
-      currently_3_desc: "Product, systems, and anything that explains why people do what they do.",
-      off_label: "03 — Off-hours",
-      off_title: "Fridays are for riding. The rest is for coffee.",
-      off_p1: "I ride a lot — mostly on Fridays, mostly with other people. Group rides taught me more about coordination, pace, and reading a room than any meeting ever did.",
-      off_p2: "I also love being in nature: foggy hillsides, quiet trails, the kind of morning where the city disappears behind the ridge. It resets my head better than any productivity system.",
-      off_p3: "And yes — there is almost always a coffee in my hand. It's a personality trait at this point.",
-      cta_join: "Join me for a ride",
-      photo_tag: "Friday · fog line",
-      contact_label: "04 — Contact",
-      contact_title: "Working on something in fintech? Or planning a Friday ride?",
-      contact_email: "Email me",
-      contact_linkedin: "LinkedIn",
-      footer: "Built by Zeinab · Shipped from a laptop, tested on a bike."
-    },
+var translations = {
+  en: {
+    brand: "Zeinab Kargarazad",
+    nav_work: "Work",
+    nav_about: "About",
+    nav_off: "Off-hours",
+    nav_contact: "Contact",
+    hero_eyebrow: "Product Manager · Fintech · Rider",
+    hero_title_1: "I ship products by day,",
+    hero_title_2: "and climb hills by bike on Fridays.",
+    hero_lede: "Product manager focused on fintech. I care about clear problems, honest metrics, and shipping things people actually use. When I am not in a sprint, I am on a bike, in the mountains, or holding a coffee.",
+    cta_talk: "Let us talk",
+    cta_ride: "Ride with me",
+    work_label: "01 — Work",
+    work_title: "Selected experience, framed like product.",
+    metric_1_label: "Product adoption",
+    metric_1_desc: "From market research that shipped 6 new features at Tarjomic.",
+    metric_2_label: "Features shipped",
+    metric_2_desc: "Discovery, scoping, and release across fintech and early-stage products.",
+    metric_3_label: "Teams coordinated",
+    metric_3_desc: "Design, engineering, and international stakeholders across remote and hybrid setups.",
+    remote: "Remote",
+    onsite: "On-site",
+    hybrid: "Hybrid",
+    present: "Present",
+    job1_role: "Associate Product Manager & Scrum Master",
+    job1_desc: "Facilitated Scrum ceremonies, removed impediments, and worked with design, engineering, and international stakeholders to define and ship features. Ran usability testing and supported QA on new releases.",
+    job2_role: "Product Manager",
+    job2_desc: "Own the product backlog end-to-end, from discovery and prioritization to release and iteration.",
+    job3_role: "Associate Product Manager",
+    job3_desc: "Built and shipped MVPs across multiple early-stage products. Led discovery, scoping, and sprint planning for parallel projects, turning fuzzy ideas into testable user stories.",
+    job4_role: "Product Specialist",
+    job4_desc: "Conducted market research that led to 6 new features and a 23% lift in adoption. Redesigned the website, improved user flows, and ran user surveys to surface pain points.",
+    about_label: "02 — About",
+    about_title: "Product manager, materials engineer, coffee addict.",
+    about_p1: "I studied Materials Science and Engineering at Iran University of Science and Technology, then moved into product, where I found the same instinct for systems applied to software instead of matter.",
+    about_p2: "Today I work on fintech products. I like problems with real constraints: regulation, trust, edge cases, and users who notice when things are wrong. My favorite part of the job is turning a vague complaint into a scoped, shippable feature.",
+    currently_label: "Currently",
+    currently_1: "Building fintech products",
+    currently_1_desc: "Focused on features that make money movement feel obvious and safe.",
+    currently_2: "Training for longer rides",
+    currently_2_desc: "Friday rides are non-negotiable. The rest of the week is logistics.",
+    currently_3: "Reading, always",
+    currently_3_desc: "Product, systems, and anything that explains why people do what they do.",
+    off_label: "03 — Off-hours",
+    off_title: "Fridays are for riding. The rest is for coffee.",
+    off_p1: "I ride a lot, mostly on Fridays, mostly with other people. Group rides taught me more about coordination, pace, and reading a room than any meeting ever did.",
+    off_p2: "I also love being in nature: foggy hillsides, quiet trails, the kind of morning where the city disappears behind the ridge. It resets my head better than any productivity system.",
+    off_p3: "And yes, there is almost always a coffee in my hand. It is a personality trait at this point.",
+    cta_join: "Join me for a ride",
+    photo_tag: "Friday · fog line",
+    contact_label: "04 — Contact",
+    contact_title: "Working on something in fintech? Or planning a Friday ride?",
+    contact_email: "Email me",
+    contact_linkedin: "LinkedIn",
+    footer: "Built by Zeinab · Shipped from a laptop, tested on a bike."
+  },
+  fa: {
+    brand: "زینب کارگرآزاد",
+    nav_work: "تجربه‌ها",
+    nav_about: "درباره من",
+    nav_off: "بیرون از کار",
+    nav_contact: "تماس",
+    hero_eyebrow: "مدیر محصول · فین‌تک · دوچرخه‌سوار",
+    hero_title_1: "روزها محصول می‌سازم،",
+    hero_title_2: "و جمعه‌ها با دوچرخه از تپه‌ها بالا می‌روم.",
+    hero_lede: "مدیر محصول با تمرکز روی فین‌تک. برایم مسئله‌ی شفاف، متریک صادقانه و ساختن چیزی که واقعاً استفاده شود اهمیت دارد. وقتی در اسپرینت نیستم، روی دوچرخه‌ام، در دل طبیعتم، یا یک فنجان قهوه در دست دارم.",
+    cta_talk: "گفت‌وگو کنیم",
+    cta_ride: "با من رکاب بزن",
+    work_label: "۰۱ — تجربه‌ها",
+    work_title: "گزیده‌ای از تجربه‌ها، این‌بار مثل یک محصول.",
+    metric_1_label: "رشد پذیرش محصول",
+    metric_1_desc: "نتیجه‌ی پژوهش بازاری که به عرضه‌ی ۶ قابلیت جدید در ترجمیک منجر شد.",
+    metric_2_label: "قابلیت عرضه‌شده",
+    metric_2_desc: "از کشف مسئله تا عرضه، در فین‌تک و محصولات نوپا.",
+    metric_3_label: "تیم هماهنگ‌شده",
+    metric_3_desc: "طراحی، مهندسی و ذی‌نفعان بین‌المللی در بسترهای دورکاری و ترکیبی.",
+    remote: "دورکاری",
+    onsite: "حضوری",
+    hybrid: "ترکیبی",
+    present: "تا امروز",
+    job1_role: "مدیر محصول همکار و اسکرام‌مستر",
+    job1_desc: "تسهیل مراسم اسکرام، رفع موانع تیم و همکاری با طراحی، مهندسی و ذی‌نفعان بین‌المللی برای تعریف و عرضه‌ی قابلیت‌ها. اجرای تست کاربردپذیری و پشتیبانی از تضمین کیفیت نسخه‌های جدید.",
+    job2_role: "مدیر محصول",
+    job2_desc: "مسئولیت کامل بک‌لاگ محصول، از کشف و اولویت‌بندی تا عرضه و بهبود تدریجی.",
+    job3_role: "مدیر محصول همکار",
+    job3_desc: "ساخت و عرضه‌ی MVP در چند محصول نوپا. هدایت کشف مسئله، تعیین دامنه و برنامه‌ریزی اسپرینت برای پروژه‌های موازی، تبدیل ایده‌های مبهم به داستان‌های کاربری قابل‌آزمون.",
+    job4_role: "کارشناس محصول",
+    job4_desc: "پژوهش بازاری که به ۶ قابلیت جدید و ۲۳٪ رشد پذیرش منجر شد. بازطراحی وب‌سایت، بهبود مسیرهای کاربری و اجرای نظرسنجی برای شناسایی نقاط درد.",
+    about_label: "۰۲ — درباره من",
+    about_title: "مدیر محصول، مهندس مواد، معتاد به قهوه.",
+    about_p1: "مهندسی مواد را در دانشگاه علم و صنعت ایران خواندم و بعد به دنیای محصول آمدم، جایی که همان علاقه به سیستم‌ها را یافتم، این‌بار روی نرم‌افزار به‌جای ماده.",
+    about_p2: "امروز روی محصولات فین‌تک کار می‌کنم. مسائلی را دوست دارم که محدودیت واقعی دارند: مقررات، اعتماد، حالت‌های خاص و کاربرانی که اشتباه را می‌بینند. محبوب‌ترین بخش کارم این است که یک شکایت مبهم را به قابلیتی مشخص و قابل‌عرضه تبدیل کنم.",
+    currently_label: "این روزها",
+    currently_1: "ساختن محصولات فین‌تک",
+    currently_1_desc: "تمرکز روی قابلیت‌هایی که جابه‌جایی پول را ساده و امن می‌کنند.",
+    currently_2: "تمرین برای رکاب‌زنی‌های طولانی‌تر",
+    currently_2_desc: "رکاب‌زنی جمعه‌ها قابل‌مذاکره نیست. باقی هفته، تدارکات است.",
+    currently_3: "همیشه در حال خواندن",
+    currently_3_desc: "محصول، سیستم‌ها و هر چیزی که توضیح دهد چرا آدم‌ها آن‌گونه که هستند رفتار می‌کنند.",
+    off_label: "۰۳ — بیرون از کار",
+    off_title: "جمعه‌ها برای رکاب‌زنی است. باقی‌اش برای قهوه.",
+    off_p1: "زیاد رکاب می‌زنم، بیشتر جمعه‌ها و بیشتر با دیگران. رکاب‌زنی گروهی درباره‌ی هماهنگی، ریتم و خواندن حال‌وهوای جمع، بیشتر از هر جلسه‌ای به من یاد داده است.",
+    off_p2: "طبیعت را هم بسیار دوست دارم: تپه‌های مه‌گرفته، مسیرهای خلوت، صبح‌هایی که شهر پشت خط‌الرأس محو می‌شود. این لحظه‌ها ذهنم را بهتر از هر سیستم بهره‌وری تازه می‌کنند.",
+    off_p3: "و بله، تقریباً همیشه یک فنجان قهوه در دستم است. دیگر بخشی از شخصیتم شده است.",
+    cta_join: "با من رکاب بزن",
+    photo_tag: "جمعه · خط مه",
+    contact_label: "۰۴ — تماس",
+    contact_title: "روی چیزی در فین‌تک کار می‌کنید؟ یا در حال برنامه‌ریزی یک رکاب‌زنی جمعه هستید؟",
+    contact_email: "ایمیل بزنید",
+    contact_linkedin: "لینکدین",
+    footer: "ساخته‌ی زینب · از روی یک لپ‌تاپ عرضه شد، روی دوچرخه تست شد."
+  }
+};
 
-    fa: {
-      brand: "زینب کارگرآزاد",
-      nav_work: "تجربه‌ها", nav_about: "درباره من",
-      nav_off: "بیرون از کار", nav_contact: "تماس",
-      hero_eyebrow: "مدیر محصول · فین‌تک · دوچرخه‌سوار",
-      hero_title_1: "روزها محصول می‌سازم،",
-      hero_title_2: "و جمعه‌ها با دوچرخه از تپه‌ها بالا می‌روم.",
-      hero_lede: "مدیر محصول با تمرکز روی فین‌تک. برایم مسئله‌ی شفاف، متریک صادقانه و ساختن چیزی که واقعاً استفاده شود اهمیت دارد. وقتی در اسپرینت نیستم، روی دوچرخه‌ام، در دل طبیعتم، یا یک فنجان قهوه در دست دارم.",
-      cta_talk: "گفت‌وگو کنیم",
-      cta_ride: "با من رکاب بزن",
-      work_label: "۰۱ — تجربه‌ها",
-      work_title: "گزیده‌ای از تجربه‌ها، این‌بار مثل یک محصول.",
-      metric_1_label: "رشد پذیرش محصول",
-      metric_1_desc: "نتیجه‌ی پژوهش بازاری که به عرضه‌ی ۶ قابلیت جدید در ترجمیک منجر شد.",
-      metric_2_label: "قابلیت عرضه‌شده",
-      metric_2_desc: "از کشف مسئله تا عرضه؛ در فین‌تک و محصولات نوپا.",
-      metric_3_label: "تیم هماهنگ‌شده",
-      metric_3_desc: "طراحی، مهندسی و ذی‌نفعان بین‌المللی در بسترهای دورکاری و ترکیبی.",
-      remote: "دورکاری", onsite: "حضوری", hybrid: "ترکیبی", present: "تا امروز",
-      job1_role: "مدیر محصول همکار و اسکرام‌مستر",
-      job1_desc: "تسهیل مراسم اسکرام، رفع موانع تیم و همکاری با طراحی، مهندسی و ذی‌نفعان بین‌المللی برای تعریف و عرضه‌ی قابلیت‌ها. اجرای تست کاربردپذیری و پشتیبانی از تض
+var STORAGE_KEY = "zeinab-lang";
+
+function setLanguage(lang) {
+  var html = document.documentElement;
+  html.setAttribute("data-lang", lang);
+  html.setAttribute("lang", lang);
+  html.setAttribute("dir", lang === "fa" ? "rtl" : "ltr");
+
+  var nodes = document.querySelectorAll("[data-i18n]");
+  for (var i = 0; i < nodes.length; i++) {
+    var key = nodes[i].getAttribute("data-i18n");
+    if (translations[lang] && translations[lang][key]) {
+      nodes[i].textContent = translations[lang][key];
+    }
+  }
+
+  var labels = document.querySelectorAll("[data-lang-label]");
+  for (var j = 0; j < labels.length; j++) {
+    var l = labels[j].getAttribute("data-lang-label");
+    labels[j].className = (l === lang) ? "active" : "inactive";
+  }
+
+  try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+}
+
+function getCurrentLang() {
+  return document.documentElement.getAttribute("data-lang") || "en";
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  var toggle = document.getElementById("langToggle");
+  if (toggle) {
+    toggle.addEventListener("click", function () {
+      setLanguage(getCurrentLang() === "en" ? "fa" : "en");
+    });
+  }
+
+  var menuToggle = document.getElementById("menuToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener("click", function () {
+      menuToggle.classList.toggle("open");
+      mobileMenu.classList.toggle("open");
+    });
+    var mlinks = mobileMenu.querySelectorAll("a");
+    for (var k = 0; k < mlinks.length; k++) {
+      mlinks[k].addEventListener("click", function () {
+        menuToggle.classList.remove("open");
+        mobileMenu.classList.remove("open");
+      });
+    }
+  }
+
+  try {
+    var saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "fa") setLanguage("fa");
+  } catch (e) {}
+});
+</script>
+
+</body>
+</html>
