@@ -1,4 +1,13 @@
-بفرما — این نسخه‌ی کامل و نهایی `index.html` با همه‌ی اصلاحات (سوییچ زبان، منوی موبایل، عکس، RTL). فقط کل محتوای فایل فعلی رو پاک کن و این رو جایگزین کن.
+حق با شماست — عذر می‌خوام. مشکل اینه که من دارم فایل رو تکه‌تکه می‌فرستم و در نسخه‌ی قبلی هم چند خط کلیدی جا افتاد (دکمه‌ی EN/FA هنوز داخل `.nav-links` مونده بود که روی موبایل `display: none` می‌شه). الان کامل و تمیز می‌فرستم.
+
+**فقط یک کار کنید:**
+1. فایل `index.html` رو باز کنید.
+2. کل محتوا رو انتخاب کنید (`Ctrl+A`).
+3. حذف کنید (`Delete`).
+4. کد زیر رو کامل کپی و پیست کنید.
+5. Save و push.
+
+---
 
 ```html
 <!DOCTYPE html>
@@ -50,7 +59,6 @@
 
   .container { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
 
-  /* ---------- NAV ---------- */
   nav {
     position: sticky; top: 0; z-index: 50;
     backdrop-filter: saturate(180%) blur(12px);
@@ -62,12 +70,21 @@
   .nav-inner {
     display: flex; align-items: center;
     justify-content: space-between; height: 60px;
+    gap: 12px;
   }
 
   .brand {
     font-weight: 600; font-size: 15px;
     letter-spacing: -0.01em;
     display: flex; align-items: center; gap: 10px;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  .brand span:last-child {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .dot {
@@ -75,6 +92,7 @@
     background: var(--sage);
     box-shadow: 0 0 0 3px rgba(138, 154, 123, 0.18);
     animation: pulse 2.4s ease-in-out infinite;
+    flex-shrink: 0;
   }
 
   @keyframes pulse {
@@ -83,7 +101,8 @@
   }
 
   .nav-right {
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 10px;
+    flex-shrink: 0;
   }
 
   .nav-links {
@@ -94,12 +113,13 @@
   .nav-links a:hover { color: var(--text); }
 
   .lang-toggle {
-    display: flex; align-items: center; gap: 6px;
+    display: inline-flex; align-items: center; gap: 6px;
     padding: 6px 10px; border: 1px solid var(--border);
     border-radius: 999px; background: var(--bg-elev);
     font-family: var(--mono); font-size: 12px;
     cursor: pointer; color: var(--text);
     transition: border-color .15s ease;
+    flex-shrink: 0;
   }
 
   .lang-toggle:hover { border-color: var(--accent); }
@@ -107,7 +127,6 @@
   .lang-toggle .active { color: var(--accent); font-weight: 600; }
   .lang-toggle .inactive { color: var(--text-muted); }
 
-  /* همبرگر */
   .menu-toggle {
     display: none;
     flex-direction: column;
@@ -120,6 +139,7 @@
     background: var(--bg-elev);
     cursor: pointer;
     padding: 0;
+    flex-shrink: 0;
   }
 
   .menu-toggle span {
@@ -135,7 +155,6 @@
   .menu-toggle.open span:nth-child(2) { opacity: 0; }
   .menu-toggle.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
 
-  /* منوی موبایل */
   .mobile-menu {
     display: none;
     flex-direction: column;
@@ -159,7 +178,6 @@
   .mobile-menu a:last-child { border-bottom: none; }
   .mobile-menu a:hover { background: var(--accent-soft); color: var(--accent); }
 
-  /* ---------- HERO ---------- */
   .hero { padding: 96px 0 72px; }
 
   .eyebrow {
@@ -211,7 +229,6 @@
 
   .btn.primary:hover { background: var(--accent); border-color: var(--accent); }
 
-  /* ---------- SECTION ---------- */
   section { padding: 72px 0; border-top: 1px solid var(--border); }
 
   .section-head { margin-bottom: 40px; }
@@ -263,7 +280,6 @@
     font-feature-settings: "tnum";
   }
 
-  /* ---------- TIMELINE ---------- */
   .timeline {
     position: relative;
     padding-inline-start: 24px;
@@ -300,7 +316,6 @@
     max-width: 640px;
   }
 
-  /* ---------- CHIPS ---------- */
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 
   .chip {
@@ -309,7 +324,6 @@
     border-radius: 999px; font-weight: 500;
   }
 
-  /* ---------- OFF HOURS ---------- */
   .off-grid {
     display: grid; grid-template-columns: 1.2fr 1fr;
     gap: 24px; align-items: stretch;
@@ -344,7 +358,6 @@
     letter-spacing: 0.02em;
   }
 
-  /* ---------- CONTACT ---------- */
   .contact {
     background: var(--text); color: var(--bg);
     border-radius: var(--radius); padding: 56px 48px;
@@ -362,23 +375,29 @@
 
   .contact .btn:hover { background: var(--sand); border-color: var(--sand); }
 
-  /* ---------- FOOTER ---------- */
   footer {
     padding: 40px 0; text-align: center;
     color: var(--text-muted); font-size: 13px;
     font-family: var(--mono);
   }
 
-  /* ---------- RTL FIXES ---------- */
   [dir="rtl"] .eyebrow::before { order: 1; }
   [dir="rtl"] .tl-item::before { transform: translateX(2px); }
   [dir="rtl"] .photo-tag { letter-spacing: 0; }
 
-  /* ---------- RESPONSIVE ---------- */
+  /* ============ RESPONSIVE ============ */
   @media (max-width: 760px) {
+    /* لینک‌های افقی مخفی، منوی موبایل جایگزین */
     .nav-links { display: none; }
+
+    /* همبرگر نمایان */
     .menu-toggle { display: flex; }
-    .lang-toggle { padding: 6px 9px; font-size: 11px; }
+
+    /* دکمه زبان کوچیک‌تر ولی همیشه دیده می‌شه */
+    .lang-toggle {
+      padding: 6px 9px;
+      font-size: 11px;
+    }
 
     .container { padding: 0 18px; }
     .hero { padding: 56px 0 40px; }
@@ -403,8 +422,9 @@
 
   @media (max-width: 380px) {
     h1 { font-size: 30px; }
-    .brand { font-size: 14px; }
-    .lang-toggle { padding: 5px 8px; font-size: 10px; }
+    .brand { font-size: 13px; gap: 8px; }
+    .lang-toggle { padding: 5px 8px; font-size: 10px; gap: 4px; }
+    .menu-toggle { width: 34px; height: 34px; }
   }
 </style>
 </head>
@@ -680,10 +700,4 @@
       metric_3_desc: "طراحی، مهندسی و ذی‌نفعان بین‌المللی در بسترهای دورکاری و ترکیبی.",
       remote: "دورکاری", onsite: "حضوری", hybrid: "ترکیبی", present: "تا امروز",
       job1_role: "مدیر محصول همکار و اسکرام‌مستر",
-      job1_desc: "تسهیل مراسم اسکرام، رفع موانع تیم و همکاری با طراحی، مهندسی و ذی‌نفعان بین‌المللی برای تعریف و عرضه‌ی قابلیت‌ها. اجرای تست کاربردپذیری و پشتیبانی از تضمین کیفیت نسخه‌های جدید.",
-      job2_role: "مدیر محصول",
-      job2_desc: "مسئولیت کامل بک‌لاگ محصول — از کشف و اولویت‌بندی تا عرضه و بهبود تدریجی.",
-      job3_role: "مدیر محصول همکار",
-      job3_desc: "ساخت و عرضه‌ی MVP در چند محصول نوپا. هدایت کشف مسئله، تعیین دامنه و برنامه‌ریزی اسپرینت برای پروژه‌های موازی — تبدیل ایده‌های مبهم به داستان‌های کاربری قابل‌آزمون.",
-      job4_role: "کارشناس محصول",
-      job4_desc: "پژوهش بازاری که به ۶ ق
+      job1_desc: "تسهیل مراسم اسکرام، رفع موانع تیم و همکاری با طراحی، مهندسی و ذی‌نفعان بین‌المللی برای تعریف و عرضه‌ی قابلیت‌ها. اجرای تست کاربردپذیری و پشتیبانی از تض
