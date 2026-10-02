@@ -661,10 +661,8 @@
   const translations = {
     en: {
       brand: "Zeinab Kargarazad",
-      nav_work: "Work",
-      nav_about: "About",
-      nav_off: "Off-hours",
-      nav_contact: "Contact",
+      nav_work: "Work", nav_about: "About",
+      nav_off: "Off-hours", nav_contact: "Contact",
 
       hero_eyebrow: "Product Manager · Fintech · Rider",
       hero_title_1: "I ship products by day,",
@@ -722,10 +720,8 @@
 
     fa: {
       brand: "زینب کارگرآزاد",
-      nav_work: "تجربه‌ها",
-      nav_about: "درباره من",
-      nav_off: "بیرون از کار",
-      nav_contact: "تماس",
+      nav_work: "تجربه‌ها", nav_about: "درباره من",
+      nav_off: "بیرون از کار", nav_contact: "تماس",
 
       hero_eyebrow: "مدیر محصول · فین‌تک · دوچرخه‌سوار",
       hero_title_1: "روزها محصول می‌سازم،",
@@ -766,4 +762,60 @@
       currently_3_desc: "محصول، سیستم‌ها و هر چیزی که توضیح دهد چرا آدم‌ها آن‌گونه که هستند رفتار می‌کنند.",
 
       off_label: "۰۳ — بیرون از کار",
-      off_title: "جمعه‌ها برای رکاب‌
+      off_title: "جمعه‌ها برای رکاب‌زنی است. باقی‌اش برای قهوه.",
+      off_p1: "زیاد رکاب می‌زنم — بیشتر جمعه‌ها و بیشتر با دیگران. رکاب‌زنی گروهی درباره‌ی هماهنگی، ریتم و خواندن حال‌وهوای جمع، بیشتر از هر جلسه‌ای به من یاد داده است.",
+      off_p2: "طبیعت را هم بسیار دوست دارم: تپه‌های مه‌گرفته، مسیرهای خلوت، صبح‌هایی که شهر پشت خط‌الرأس محو می‌شود. این لحظه‌ها ذهنم را بهتر از هر سیستم بهره‌وری تازه می‌کنند.",
+      off_p3: "و بله — تقریباً همیشه یک فنجان قهوه در دستم است. دیگر بخشی از شخصیتم شده است.",
+      cta_join: "با من رکاب بزن",
+      photo_tag: "جمعه · خط مه",
+
+      contact_label: "۰۴ — تماس",
+      contact_title: "روی چیزی در فین‌تک کار می‌کنید؟ یا در حال برنامه‌ریزی یک رکاب‌زنی جمعه هستید؟",
+      contact_email: "ایمیل بزنید",
+      contact_linkedin: "لینکدین",
+
+      footer: "ساخته‌ی زینب · از روی یک لپ‌تاپ عرضه شد، روی دوچرخه تست شد."
+    }
+  };
+
+  const STORAGE_KEY = "zeinab-lang";
+
+  function setLanguage(lang) {
+    const html = document.documentElement;
+    html.setAttribute("data-lang", lang);
+    html.setAttribute("lang", lang);
+    html.setAttribute("dir", lang === "fa" ? "rtl" : "ltr");
+
+    // Swap all translated text
+    document.querySelectorAll("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      const value = translations[lang] && translations[lang][key];
+      if (value) el.textContent = value;
+    });
+
+    // Update toggle visual state
+    document.querySelectorAll("[data-lang-label]").forEach((el) => {
+      const label = el.getAttribute("data-lang-label");
+      el.classList.toggle("active", label === lang);
+      el.classList.toggle("inactive", label !== lang);
+    });
+
+    // Remember choice
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+  }
+
+  // Wire up the toggle
+  const toggle = document.getElementById("langToggle");
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-lang") || "en";
+      setLanguage(current === "en" ? "fa" : "en");
+    });
+  }
+
+  // Restore saved language on load
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "fa") setLanguage("fa");
+  } catch (e) {}
+</script>
